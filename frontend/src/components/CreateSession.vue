@@ -199,6 +199,9 @@ const validationError = computed(() => {
   if (members.value.length === 0) return 'Add at least one person'
   const missingName = members.value.some(m => !m.name.trim())
   if (missingName) return 'All members must have a name'
+  const names = members.value.map(m => m.name.trim().toLowerCase())
+  const hasDuplicate = names.some((n, i) => names.indexOf(n) !== i)
+  if (hasDuplicate) return 'Member names must be unique'
   if (costItems.value.length === 0) {
     const missingAmount = members.value.some(m => !m.manualAmount || m.manualAmount <= 0)
     if (missingAmount) return 'All members must have an amount > 0'

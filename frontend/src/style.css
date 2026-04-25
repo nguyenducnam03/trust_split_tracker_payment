@@ -12,6 +12,36 @@ body {
   padding: 0 16px;
 }
 
+@media (max-width: 480px) {
+  .container { margin: 16px auto; padding: 0 12px; }
+
+  /* Navbar */
+  .navbar { padding: 0 16px; }
+  .nav-user { display: none; }
+
+  /* Session List */
+  .page-header h2 { font-size: 18px; }
+
+  /* Create Session */
+  .session-info { flex-direction: column; }
+  .grid-scroll { font-size: 13px; }
+  .col-name { width: 90px; }
+  .col-amount { width: 80px; }
+
+  /* Session Detail */
+  .sd-stats { gap: 8px; }
+  .stat-value { font-size: 15px; }
+  .stat-card { padding: 10px 12px; }
+
+  /* Confirm Payment */
+  .member-btn { padding: 14px 12px; font-size: 15px; }
+  .popup { width: calc(100vw - 48px); }
+  .btn-submit { padding: 14px; font-size: 16px; }
+
+  /* Auth */
+  .auth-card { padding: 28px 20px; }
+}
+
 /* Session List */
 .session-list-page { display: flex; flex-direction: column; gap: 16px; }
 .page-header { display: flex; justify-content: space-between; align-items: center; }

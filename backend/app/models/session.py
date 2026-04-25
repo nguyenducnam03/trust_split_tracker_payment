@@ -41,6 +41,9 @@ class CreateSessionRequest(BaseModel):
     def members_not_empty(cls, v):
         if len(v) == 0:
             raise ValueError('At least one member is required')
+        names = [m.name.lower() for m in v]
+        if len(names) != len(set(names)):
+            raise ValueError('Member names must be unique')
         return v
 
 class ConfirmRequest(BaseModel):

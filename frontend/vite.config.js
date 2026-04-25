@@ -6,6 +6,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [vue()],
     server: {
+      allowedHosts: ['localhost', '.ngrok-free.app', '.ngrok-free.dev'],
       proxy: {
         '/api': env.VITE_API_URL || 'http://localhost:7776',
       },
