@@ -5,11 +5,15 @@ import CreateSession from './components/CreateSession.vue'
 import SessionDetail from './components/SessionDetail.vue'
 import ConfirmPayment from './components/ConfirmPayment.vue'
 import Login from './components/Login.vue'
+import ForgotPassword from './components/ForgotPassword.vue'
+import ResetPassword from './components/ResetPassword.vue'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/login', component: Login },
+    { path: '/forgot-password', component: ForgotPassword },
+    { path: '/reset-password', component: ResetPassword },
     { path: '/', component: SessionList, meta: { requiresAuth: true } },
     { path: '/create', component: CreateSession, meta: { requiresAuth: true } },
     { path: '/sessions/:id', component: SessionDetail, meta: { requiresAuth: true } },

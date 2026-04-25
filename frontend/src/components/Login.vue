@@ -10,15 +10,15 @@
       <form @submit.prevent="onSubmit" class="auth-form">
         <div class="field" v-if="isRegister">
           <label>Name</label>
-          <input v-model="name" type="text" placeholder="Your name" required />
+          <input v-model="name" type="text" placeholder="Your name" autocomplete="name" required />
         </div>
         <div class="field">
           <label>Email</label>
-          <input v-model="email" type="email" placeholder="you@example.com" required />
+          <input v-model="email" type="email" placeholder="you@example.com" autocomplete="email" required />
         </div>
         <div class="field">
           <label>Password</label>
-          <input v-model="password" type="password" placeholder="••••••••" required />
+          <input v-model="password" type="password" placeholder="••••••••" :autocomplete="isRegister ? 'new-password' : 'current-password'" required />
           <span v-if="isRegister" class="field-hint">Min 8 chars, uppercase, lowercase, number</span>
         </div>
 
@@ -29,6 +29,9 @@
         </button>
       </form>
 
+      <p v-if="!isRegister" class="auth-switch">
+        <router-link to="/forgot-password">Forgot password?</router-link>
+      </p>
       <p class="auth-switch">
         {{ isRegister ? 'Already have an account?' : "Don't have an account?" }}
         <a href="#" @click.prevent="isRegister = !isRegister; error = ''">
