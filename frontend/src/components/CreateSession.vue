@@ -58,7 +58,7 @@
             <tr v-for="(member, idx) in members" :key="idx">
               <td class="col-no">{{ idx + 1 }}</td>
               <td class="col-name">
-                <input v-model="member.name" type="text" placeholder="Name" />
+                <input v-model="member.name" type="text" placeholder="Name" :data-name-idx="idx" @keydown.enter.prevent="focusNext('name', idx)" />
               </td>
               <td v-for="(item, i) in costItems" :key="i" class="col-check">
                 <label class="check-cell">
@@ -78,6 +78,8 @@
                   type="number"
                   min="0"
                   placeholder="0"
+                  :data-amount-idx="idx"
+                  @keydown.enter.prevent="focusNext('amount', idx)"
                 />
                 <span v-if="costItems.length === 0" class="cost-unit">k</span>
               </td>
@@ -193,6 +195,11 @@ const totalAmount = computed(() => {
 const canSubmit = computed(() =>
   sessionName.value.trim() && members.value.length > 0
 )
+
+function focusNext(type, idx) {
+  const next = document.querySelector(`[data-${type}-idx="${idx + 1}"]`)
+  if (next) next.focus()
+}
 
 function formatCheckAmount(item, i) {
   if (!item.total) return ''
