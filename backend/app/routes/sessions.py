@@ -28,6 +28,13 @@ async def create_session(body: CreateSessionRequest, user_id: str = Security(get
     doc["_id"] = result.inserted_id
     return serialize(doc)
 
+@router.get("", response_model=list[SessionOut])
+async def list_sessions(user_id: str = Security(get_current_user_id)):
+    db = get_db()
+    cursor = db.sessions.find({"owner_id": user_id}).sort("created_at", -1)
+    docs = await cursor.to_list(length=100)
+    return [serialize(doc) for doc in docs]
+
 @router.get("/{session_id}", response_model=SessionOut)
 async def get_session(session_id: str):
     db = get_db()

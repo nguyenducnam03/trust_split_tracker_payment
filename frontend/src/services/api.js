@@ -27,6 +27,7 @@ http.interceptors.response.use(
   }
 )
 
+export const getSessions = () => http.get('/sessions').then(r => r.data)
 export const createSession = (data) => http.post('/sessions', data).then(r => r.data)
 export const getSession = (id) => http.get(`/sessions/${id}`).then(r => r.data)
 export const confirmPayment = (id, memberName) =>

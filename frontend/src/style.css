@@ -12,6 +12,40 @@ body {
   padding: 0 16px;
 }
 
+/* Session List */
+.session-list-page { display: flex; flex-direction: column; gap: 16px; }
+.page-header { display: flex; justify-content: space-between; align-items: center; }
+.page-header h2 { font-size: 20px; font-weight: 600; }
+.btn-new {
+  background: #4f8ef7; color: #fff; border: none; border-radius: 8px;
+  padding: 8px 16px; font-size: 14px; font-weight: 500; text-decoration: none;
+  cursor: pointer;
+}
+.btn-new:hover { background: #3a7de8; }
+
+.empty-state { text-align: center; padding: 60px 20px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.empty-icon { font-size: 40px; }
+.empty-state p { color: #aaa; font-size: 15px; }
+
+.sessions { display: flex; flex-direction: column; gap: 10px; }
+.session-card {
+  background: #fff; border-radius: 10px; padding: 16px;
+  text-decoration: none; color: #333;
+  border: 1px solid #eee;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: box-shadow 0.15s;
+}
+.session-card:hover { box-shadow: 0 2px 12px rgba(79,142,247,0.12); border-color: #c5d8fd; }
+.card-top { display: flex; justify-content: space-between; align-items: center; }
+.card-name { font-weight: 600; font-size: 15px; }
+.card-date { font-size: 12px; color: #aaa; }
+.card-bottom { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.card-progress { display: flex; align-items: center; gap: 8px; flex: 1; }
+.card-bar { flex: 1; height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
+.card-fill { height: 100%; background: #4f8ef7; border-radius: 3px; }
+.card-stat { font-size: 12px; color: #888; white-space: nowrap; }
+.card-amount { font-size: 14px; font-weight: 600; color: #333; white-space: nowrap; }
+
 /* Navbar */
 .navbar {
   background: #fff;
@@ -281,23 +315,58 @@ input:focus { border-color: #4f8ef7; }
 .back-link { display: inline-block; margin-top: 20px; color: #4f8ef7; font-size: 14px; text-decoration: none; }
 
 /* Session Detail */
-.session-detail { display: flex; flex-direction: column; gap: 16px; }
-.page-header { display: flex; flex-direction: column; gap: 8px; }
-.share-hint { font-size: 13px; color: #666; }
+.session-detail { display: flex; flex-direction: column; gap: 20px; }
+
+.sd-back { font-size: 13px; color: #4f8ef7; text-decoration: none; }
+.sd-back:hover { text-decoration: underline; }
+.sd-title { font-size: 22px; font-weight: 700; color: #1a1a2e; margin-top: 4px; }
+
+.sd-stats { display: flex; gap: 10px; }
+.stat-card {
+  flex: 1; background: #fff; border-radius: 10px;
+  padding: 14px 16px; border: 1px solid #eee;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.stat-label { font-size: 12px; color: #aaa; }
+.stat-value { font-size: 18px; font-weight: 700; color: #333; }
+.stat-value.green { color: #27ae60; }
+
+.sd-progress { display: flex; align-items: center; gap: 10px; }
+.progress-bar { flex: 1; height: 8px; background: #eee; border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; background: #4f8ef7; border-radius: 4px; transition: width 0.4s; }
+.progress-label { font-size: 13px; color: #888; width: 36px; text-align: right; }
+
+.sd-share { display: flex; flex-direction: column; gap: 6px; }
+.share-label { font-size: 13px; color: #666; font-weight: 500; }
 .link-row { display: flex; gap: 8px; }
-.link-row input { flex: 1; font-size: 13px; }
-.btn { border: 1px solid #ddd; background: #fff; border-radius: 6px; padding: 6px 14px; cursor: pointer; font-size: 13px; }
-.btn:hover { background: #f5f5f5; }
-.btn-small { white-space: nowrap; }
+.link-row input { flex: 1; font-size: 13px; background: #f9f9f9; border: 1px solid #eee; border-radius: 6px; padding: 8px 10px; outline: none; }
+.btn-copy {
+  background: #4f8ef7; color: #fff; border: none; border-radius: 6px;
+  padding: 8px 16px; font-size: 13px; cursor: pointer; white-space: nowrap;
+}
+.btn-copy:hover { background: #3a7de8; }
 
-.progress-bar { height: 8px; background: #eee; border-radius: 4px; overflow: hidden; }
-.progress-fill { height: 100%; background: #4f8ef7; border-radius: 4px; transition: width 0.3s; }
+.sd-members { display: flex; flex-direction: column; gap: 8px; }
+.member-row {
+  display: flex; align-items: center; gap: 12px;
+  background: #fff; border: 1px solid #eee; border-radius: 10px; padding: 12px 16px;
+}
+.member-row.member-paid { border-color: #d4edda; background: #f8fff9; }
+.member-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: #e8f0fe; color: #4f8ef7;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; flex-shrink: 0;
+}
+.member-paid .member-avatar { background: #e6f7ee; color: #27ae60; }
+.member-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.member-name { font-size: 14px; font-weight: 500; }
+.member-time { font-size: 11px; color: #aaa; }
+.member-amt { font-size: 14px; font-weight: 600; color: #333; }
 
-.badge { padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 500; }
+.badge { padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 500; }
 .badge-confirmed { background: #e6f7ee; color: #27ae60; }
 .badge-pending { background: #f5f5f5; color: #aaa; }
-
-tr.confirmed td { color: #27ae60; }
 
 /* Confirm Payment */
 .confirm-page { display: flex; flex-direction: column; gap: 16px; }

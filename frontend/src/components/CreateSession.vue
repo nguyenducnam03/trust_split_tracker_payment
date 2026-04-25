@@ -10,7 +10,7 @@
       </div>
       <div class="field">
         <label>Number of people</label>
-        <input v-model.number="numberOfPeople" type="number" min="1" max="50" placeholder="e.g. 8" />
+        <input v-model.number="numberOfPeople" type="number" min="1" max="50" placeholder="e.g. 8" @keydown.enter.prevent="focusFirstName" />
       </div>
     </div>
 
@@ -207,6 +207,11 @@ const validationError = computed(() => {
 })
 
 const canSubmit = computed(() => !validationError.value)
+
+function focusFirstName() {
+  const first = document.querySelector('[data-name-idx="0"]')
+  if (first) first.focus()
+}
 
 function focusNext(type, idx) {
   const next = document.querySelector(`[data-${type}-idx="${idx + 1}"]`)

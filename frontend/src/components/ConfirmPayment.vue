@@ -39,7 +39,7 @@
   <!-- Popup: confirm adding extra person -->
   <div v-if="pendingName" class="popup-overlay" @click.self="pendingName = ''">
     <div class="popup">
-      <p>Also paying for <strong>{{ pendingName }}</strong>?</p>
+      <p>You're paying for <strong>{{ selectedNames.join(', ') }}</strong>. Also pay for <strong>{{ pendingName }}</strong>?</p>
       <div class="popup-actions">
         <button class="btn-cancel" @click="pendingName = ''">Cancel</button>
         <button class="btn-confirm-pop" @click="confirmAddPending">Yes, add</button>
