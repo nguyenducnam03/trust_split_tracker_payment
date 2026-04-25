@@ -8,6 +8,9 @@ class Settings(BaseSettings):
     db_name: str = "trust_split"
     frontend_url: str = "http://localhost:7777"
     port: int = 7776
+    jwt_secret: str
+    access_token_expire_minutes: int = 1440
+    refresh_token_expire_days: int = 90
 
     class Config:
         env_file = ".env"

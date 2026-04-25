@@ -1,8 +1,9 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Security
 from datetime import datetime, timezone
 from bson import ObjectId
 from app.models.session import CreateSessionRequest, ConfirmRequest, SessionOut
 from app.services.database import get_db
+from app.services.auth import get_current_user_id
 from app.config import settings
 
 router = APIRouter(prefix="/api/sessions", tags=["sessions"])
@@ -13,10 +14,11 @@ def serialize(doc) -> dict:
     return doc
 
 @router.post("", response_model=SessionOut)
-async def create_session(body: CreateSessionRequest):
+async def create_session(body: CreateSessionRequest, user_id: str = Security(get_current_user_id)):
     db = get_db()
     members = [{"name": m.name, "amount": m.amount, "confirmed": False, "confirmed_at": None} for m in body.members]
     doc = {
+        "owner_id": user_id,
         "name": body.name,
         "cost_items": [c.model_dump() for c in body.cost_items],
         "members": members,
