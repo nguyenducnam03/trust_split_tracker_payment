@@ -1,0 +1,12 @@
+name: trust_payment
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "7776:7776"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 7776 --reload
