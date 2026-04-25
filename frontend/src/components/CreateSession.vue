@@ -104,6 +104,7 @@
     <button class="btn-submit" :disabled="!canSubmit || loading" @click="onSubmit">
       {{ loading ? 'Creating...' : 'Create Session' }}
     </button>
+    <p v-if="validationError && showValidation" class="error">{{ validationError }}</p>
     <p v-if="error" class="error">{{ error }}</p>
   </div>
 </template>
@@ -116,6 +117,7 @@ import { createSession } from '../services/api'
 const router = useRouter()
 const loading = ref(false)
 const error = ref('')
+const showValidation = ref(false)
 
 const sessionName = ref('')
 const numberOfPeople = ref(null)
@@ -192,9 +194,19 @@ const totalAmount = computed(() => {
   return members.value.reduce((sum, m) => sum + (m.manualAmount || 0) * 1000, 0)
 })
 
-const canSubmit = computed(() =>
-  sessionName.value.trim() && members.value.length > 0
-)
+const validationError = computed(() => {
+  if (!sessionName.value.trim()) return 'Session name is required'
+  if (members.value.length === 0) return 'Add at least one person'
+  const missingName = members.value.some(m => !m.name.trim())
+  if (missingName) return 'All members must have a name'
+  if (costItems.value.length === 0) {
+    const missingAmount = members.value.some(m => !m.manualAmount || m.manualAmount <= 0)
+    if (missingAmount) return 'All members must have an amount > 0'
+  }
+  return ''
+})
+
+const canSubmit = computed(() => !validationError.value)
 
 function focusNext(type, idx) {
   const next = document.querySelector(`[data-${type}-idx="${idx + 1}"]`)
@@ -213,6 +225,8 @@ function formatMoney(n) {
 }
 
 async function onSubmit() {
+  showValidation.value = true
+  if (validationError.value) return
   loading.value = true
   error.value = ''
   try {

@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator, model_validator
 from typing import Optional
 from datetime import datetime
 
@@ -10,10 +10,38 @@ class MemberInput(BaseModel):
     name: str
     amount: float
 
+    @field_validator('name')
+    @classmethod
+    def name_not_empty(cls, v):
+        if not v.strip():
+            raise ValueError('Member name cannot be empty')
+        return v.strip()
+
+    @field_validator('amount')
+    @classmethod
+    def amount_positive(cls, v):
+        if v <= 0:
+            raise ValueError('Amount must be greater than 0')
+        return v
+
 class CreateSessionRequest(BaseModel):
     name: str
     cost_items: list[CostItem] = []
     members: list[MemberInput]
+
+    @field_validator('name')
+    @classmethod
+    def name_not_empty(cls, v):
+        if not v.strip():
+            raise ValueError('Session name cannot be empty')
+        return v.strip()
+
+    @field_validator('members')
+    @classmethod
+    def members_not_empty(cls, v):
+        if len(v) == 0:
+            raise ValueError('At least one member is required')
+        return v
 
 class ConfirmRequest(BaseModel):
     member_name: str
